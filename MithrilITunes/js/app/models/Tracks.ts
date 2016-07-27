@@ -1,4 +1,4 @@
-﻿/// <reference path="../../typings/index.d.ts"/>
+﻿/// <reference path="../mithril.d.ts"/>
 module Model {
   export class Tracks {
     tracks: Track[] = [];

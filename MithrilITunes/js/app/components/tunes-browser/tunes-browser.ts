@@ -1,5 +1,5 @@
-﻿/// <reference path="../../../typings/index.d.ts"/>
-module  Components {
+﻿/// <reference path="../../mithril.d.ts"/>
+module Components {
   export class TunesBrowser implements Mithril.Component<TunesBrowser> {
     constructor(private tracks: Model.Tracks) {}
 

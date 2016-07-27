@@ -1,4 +1,4 @@
-﻿/// <reference path="../typings/index.d.ts"/>
+﻿/// <reference path="./mithril.d.ts"/>
 module App {
   export class TunesApp implements Mithril.Component<TunesApp> {
     tunesBrowser = new Components.TunesBrowser(new Model.Tracks());

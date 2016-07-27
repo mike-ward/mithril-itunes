@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../typings/index.d.ts"/>
+﻿/// <reference path="../../mithril.d.ts"/>
 module Components {
   export class TunesForm implements Mithril.Component<TunesForm> {
     constructor(private tracks: Model.Tracks) {}
