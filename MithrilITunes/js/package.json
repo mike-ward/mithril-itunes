@@ -1,0 +1,19 @@
+{
+  "name": "mithril-itunes",
+  "version": "1.0.0",
+  "description": "Sample mithril app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mithril",
+    "itunes"
+  ],
+  "author": "mikeward_aa",
+  "license": "MIT",
+  "dependencies": {
+    "mithril": "0.2.5",
+    "purecss": "0.6.0"
+  }
+}
