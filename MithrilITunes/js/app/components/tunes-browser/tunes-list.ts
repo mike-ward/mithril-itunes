@@ -4,19 +4,20 @@ module Components {
     constructor(private tracks: Model.Tracks) { }
 
     view() {
-      return m('table.pure-table.pure-table-bordered', [
-        this.header(),
-        this.body()
-      ]);
+      return this.tracks.tracks.length
+        ? m('table.pure-table.pure-table-bordered', [
+          this.header(),
+          this.body()])
+        : m('');
     }
 
     header() {
       return m('thead', [
         m('tr', { onclick: e => this.updateSort(e.target.id) }, [
-          m('th[id="trackName"]', 'Name'),
-          m('th[id="artistName"]', 'Artist'),
-          m('th[id="collectionName"]', 'Collection'),
-          m('th[id="trackPrice"]', 'Price')
+          m('th[id="trackName"]', `Name ${this.isSortedOn('trackName')}`),
+          m('th[id="artistName"]', `Artist ${this.isSortedOn('artistName')}`),
+          m('th[id="collectionName"]', `Collection ${this.isSortedOn('collectionName')}`),
+          m('th[id="trackPrice"]', `Price ${this.isSortedOn('trackPrice')}`)
         ])
       ]);
     }
@@ -41,10 +42,10 @@ module Components {
         m('img', {
           alt: 'artwork cover',
           src: track.artworkUrl100,
-          style: 'vertical-align: middle; margin: 3pt;',
+          style: 'vertical-align: middle; margin: .2em; border: solid black; cursor: pointer',
           onclick: () => this.tracks.selectTrack(track)
         }),
-        m('span', track.trackName)
+        m('span', { style: 'font-size: larger' }, track.trackName)
       ]);
     }
 
@@ -57,12 +58,16 @@ module Components {
 
     sort(): Model.Track[] {
       const field = this.sortBy;
-      return !field
-        ? this.tracks.tracks
-        : this.tracks
+      return field
+        ? this.tracks
           .tracks
           .slice()
-          .sort((a, b) => (a[field] || '').toString().localeCompare(b[field] || '').toString());
+          .sort((a, b) => (a[field] || '').toString().localeCompare(b[field] || '').toString())
+        : this.tracks.tracks;
+    }
+
+    isSortedOn(field: string) {
+      return this.sortBy === field ? '*' : '';
     }
   }
 }

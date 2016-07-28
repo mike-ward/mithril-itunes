@@ -530,7 +530,7 @@ declare namespace Mithril {
 	* @see ControllerConstructor
 	*/
 	interface ControllerFunction<T extends Controller> {
-		(...args: any[]): any;
+		(...args: any[]): T | void;
 	}
 
 	/**
@@ -539,7 +539,7 @@ declare namespace Mithril {
 	* @see ControllerFunction
 	*/
 	interface ControllerConstructor<T extends Controller> {
-		new (...args: any[]): any;
+		new (...args: any[]): T | void;
 	}
 
 	/**

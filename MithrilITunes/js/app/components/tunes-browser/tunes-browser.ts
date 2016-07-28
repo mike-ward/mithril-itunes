@@ -10,7 +10,7 @@ module Components {
     view() {
       return m('div', [
         m(this.tunesForm),
-        m('hr', { style: 'margin: 10pt 0' }),
+        m('hr', { style: 'margin: 1rem 0' }),
         m(this.tunesList),
         m(this.tunesPlayer)
       ]);
