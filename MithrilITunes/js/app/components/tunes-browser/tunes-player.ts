@@ -4,23 +4,24 @@ module Components {
     constructor(private tracks: Model.Tracks) { }
 
     view() {
-      return this.tracks && this.tracks.getSelectedTrack()
-        ? m('div', { style: this.style }, [
-          m('div', [
-            m('button.pure-button[style="float:right"]', { onclick: () => this.close() }, 'x'),
-            m('div', this.tracks.getSelectedTrack().trackName),
-            m('small', [
-              m.trust('by&nbsp;'),
-              m('cite', this.tracks.getSelectedTrack().artistName)
-            ])
-          ]),
-          m('video', {
-            src: this.tracks.getSelectedTrack().previewUrl,
-            autoplay: true,
-            style: 'width: 24rem; margin: 0.5rem'
-          })
-        ])
-        : m('');
+      const selectedTrack = this.tracks && this.tracks.getSelectedTrack();
+      if (!selectedTrack) return m('');
+
+      return m('div', { style: this.style }, [
+        m('div', [
+          m('button.pure-button[style="float:right"]', { onclick: () => this.close() }, 'x'),
+          m('div', selectedTrack.trackName),
+          m('small', [
+            m.trust('by&nbsp;'),
+            m('cite', selectedTrack.artistName)
+          ])
+        ]),
+        m('video', {
+          autoplay: true,
+          src: selectedTrack.previewUrl,
+          style: 'width: 24rem; margin: 0.5rem'
+        })
+      ]);
     }
 
     close() {

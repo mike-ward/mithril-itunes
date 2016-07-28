@@ -33,5 +33,13 @@ module Model {
       this.selectedTrack = null;
       m.redraw();
     }
+
+    sort(field: string) {
+      return field
+        ? this.tracks
+          .slice()
+          .sort((a, b) => (a[field] || '').toString().localeCompare(b[field] || '').toString())
+        : this.tracks;
+    }
   }
 }

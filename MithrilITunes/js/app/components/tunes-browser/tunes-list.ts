@@ -6,25 +6,28 @@ module Components {
     view() {
       return this.tracks.getTracks().length
         ? m('table.pure-table.pure-table-bordered', [
-          this.header(),
+          this.head(),
           this.body()])
         : m('');
     }
 
-    header() {
+    head() {
       return m('thead', [
-        m('tr', { onclick: e => this.updateSort(e.target.id) }, [
-          m('th[id="trackName"]', `Name ${this.isSortedOn('trackName')}`),
-          m('th[id="artistName"]', `Artist ${this.isSortedOn('artistName')}`),
-          m('th[id="collectionName"]', `Collection ${this.isSortedOn('collectionName')}`),
-          m('th[id="trackPrice"]', `Price ${this.isSortedOn('trackPrice')}`)
-        ])
+        m('tr', {
+          style: 'cursor: pointer',
+          onclick: e => this.updateSort(e.target.id)
+        }, [
+            m('th[id="trackName"]', `Name ${this.isSortedOn('trackName')}`),
+            m('th[id="artistName"]', `Artist ${this.isSortedOn('artistName')}`),
+            m('th[id="collectionName"]', `Collection ${this.isSortedOn('collectionName')}`),
+            m('th[id="trackPrice"]', `Price ${this.isSortedOn('trackPrice')}`)
+          ])
       ]);
     }
 
     body() {
       return m('tbody', [
-        this.sort().map(track => this.row(track))
+        this.tracks.sort(this.sortBy).map(track => this.row(track))
       ]);
     }
 
@@ -53,17 +56,6 @@ module Components {
 
     updateSort(field: string) {
       this.sortBy = field;
-      m.redraw();
-    }
-
-    sort(): Model.Track[] {
-      const field = this.sortBy;
-      return field
-        ? this.tracks
-          .getTracks()
-          .slice()
-          .sort((a, b) => (a[field] || '').toString().localeCompare(b[field] || '').toString())
-        : this.tracks.getTracks();
     }
 
     isSortedOn(field: string) {
