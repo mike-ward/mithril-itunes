@@ -4,7 +4,7 @@ module Components {
     constructor(private tracks: Model.Tracks) { }
 
     view() {
-      return this.tracks.tracks.length
+      return this.tracks.getTracks().length
         ? m('table.pure-table.pure-table-bordered', [
           this.header(),
           this.body()])
@@ -60,10 +60,10 @@ module Components {
       const field = this.sortBy;
       return field
         ? this.tracks
-          .tracks
+          .getTracks()
           .slice()
           .sort((a, b) => (a[field] || '').toString().localeCompare(b[field] || '').toString())
-        : this.tracks.tracks;
+        : this.tracks.getTracks();
     }
 
     isSortedOn(field: string) {

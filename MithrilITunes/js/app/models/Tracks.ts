@@ -1,8 +1,8 @@
 ﻿/// <reference path="../mithril.d.ts"/>
 module Model {
   export class Tracks {
-    tracks: Track[] = [];
-    selectedTrack: Track;
+    private tracks: Track[] = [];
+    private selectedTrack: Track;
 
     updateTracks(searchTerm: string) {
       this.clear();
@@ -13,6 +13,14 @@ module Model {
         data: { term: searchTerm, media: 'musicVideo' }
       })
         .then(data => this.tracks = data.results);
+    }
+
+    getSelectedTrack() {
+      return this.selectedTrack;
+    }
+
+    getTracks() {
+      return this.tracks;
     }
 
     selectTrack(track: Track) {
