@@ -1,6 +1,6 @@
 ﻿/// <reference path="./mithril.d.ts"/>
 module App {
-  export class TunesApp implements Mithril.Component<TunesApp> {
+  export class TunesApp implements Mithril.Component<any> {
     tunesBrowser = new Components.TunesBrowser(new Model.Tracks());
 
     view() {
@@ -9,7 +9,5 @@ module App {
         m(this.tunesBrowser)
       ]);
     }
-
-    controller;
   }
 }

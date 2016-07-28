@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../mithril.d.ts"/>
 module Components {
-  export class TunesForm implements Mithril.Component<TunesForm> {
+  export class TunesForm implements Mithril.Component<any> {
     constructor(private tracks: Model.Tracks) {}
 
     searchTerm = m.prop('');

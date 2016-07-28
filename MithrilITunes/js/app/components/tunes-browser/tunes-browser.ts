@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../mithril.d.ts"/>
 module Components {
-  export class TunesBrowser implements Mithril.Component<TunesBrowser> {
+  export class TunesBrowser implements Mithril.Component<any> {
     constructor(private tracks: Model.Tracks) {}
 
     private tunesForm = new TunesForm(this.tracks);
