@@ -12,7 +12,6 @@ module Model {
       this.selectedTrack = null;
       this.updating = true;
       m.redraw();
-      console.log(searchTerm, this)
 
       m.request({
         dataType: 'jsonp',
