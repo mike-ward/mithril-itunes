@@ -2,18 +2,14 @@
 module Components {
   export class TunesList implements Mithril.Component<any> {
     sortBy = '';
-    selectTrack: (track) => void;
-
-    controller(args) {
-      this.selectTrack = (track) => args.selectTrack(track);
-    }
 
     view(_, args) {
       const tracks = args.getTracks(this.sortBy);
+      const selectTrack = args.selectTrack;
       return tracks.length
         ? m('table.pure-table.pure-table-bordered', [
           this.head(),
-          this.body(tracks)])
+          this.body(tracks, selectTrack)])
         : m('');
     }
 
@@ -31,28 +27,28 @@ module Components {
       ]);
     }
 
-    body(tracks) {
+    body(tracks: Model.Track[], selectTrack: (s: Model.Track) => void) {
       return m('tbody', [
-        tracks.map(track => this.row(track))
+        tracks.map(track => this.row(track, selectTrack))
       ]);
     }
 
-    row(track: Model.Track) {
+    row(track: Model.Track, selectTrack: (s: Model.Track) => void) {
       return m('tr', [
-        m('td', this.name(track)),
+        m('td', this.name(track, selectTrack)),
         m('td', track.artistName),
         m('td', track.collectionName),
         m('td', track.trackPrice)
       ]);
     }
 
-    name(track: Model.Track) {
+    name(track: Model.Track, selectTrack: (s: Model.Track) => void) {
       return m('div', [
         m('img', {
           alt: 'artwork cover',
           src: track.artworkUrl100,
           style: 'vertical-align: middle; margin: .2em; border: solid black; cursor: pointer',
-          onclick: () => this.selectTrack(track)
+          onclick: () => selectTrack(track)
         }),
         m('span', { style: 'font-size: larger' }, track.trackName)
       ]);
