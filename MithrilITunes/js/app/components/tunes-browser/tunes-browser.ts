@@ -1,18 +1,34 @@
 ﻿/// <reference path="../../mithril.d.ts"/>
 module Components {
   export class TunesBrowser implements Mithril.Component<any> {
-    constructor(private tracks: Model.Tracks) {}
+    constructor(private playList: Model.PlayList) { }
 
-    private tunesForm = new TunesForm(this.tracks);
-    private tunesList = new TunesList(this.tracks);
-    private tunesPlayer = new TunesPlayer(this.tracks);
+    private tunesForm = new TunesForm();
+    private tunesList = new TunesList();
+    private tunesPlayer = new TunesPlayer();
+    private tunesSearching = new TunesSearching();
 
     view() {
       return m('div', [
-        m(this.tunesForm),
-        m('hr', { style: 'margin: 1rem 0' }),
-        m(this.tunesList),
-        m(this.tunesPlayer)
+        m(this.tunesForm, {
+          onSearch: (searchTerm) => this.playList.updateTracks(searchTerm)
+        }),
+
+        m('hr',
+          { style: 'margin: 1rem 0' }),
+
+        m(this.tunesList, {
+          getTracks: (sortBy) => this.playList.sort(sortBy),
+          selectTrack: (track) => this.playList.selectTrack(track)
+        }),
+
+        m(this.tunesPlayer, {
+          selectedTrack: () => this.playList.getSelectedTrack(),
+          close: () => this.playList.selectTrack(null)
+        }),
+
+        m(this.tunesSearching,
+          { updating: this.playList.isUpdating() })
       ]);
     }
   }

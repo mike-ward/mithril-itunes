@@ -1,18 +1,26 @@
 ﻿/// <reference path="../mithril.d.ts"/>
 module Model {
-  export class Tracks {
+  export class PlayList {
     private tracks: Track[] = [];
     private selectedTrack: Track;
+    private updating = false;
 
     updateTracks(searchTerm: string) {
-      this.clear();
+      const endUpdate = () => this.updating = false;
+
+      this.tracks = [];
+      this.selectedTrack = null;
+      this.updating = true;
+      m.redraw();
+      console.log(searchTerm, this)
 
       m.request({
         dataType: 'jsonp',
         url: 'https://itunes.apple.com/search',
         data: { term: searchTerm, media: 'musicVideo' }
       })
-        .then(data => this.tracks = data.results);
+        .then(data => this.tracks = data.results)
+        .then(endUpdate, endUpdate);
     }
 
     getSelectedTrack() {
@@ -23,14 +31,12 @@ module Model {
       return this.tracks;
     }
 
-    selectTrack(track: Track) {
-      this.selectedTrack = track;
-      m.redraw();
+    isUpdating() {
+      return this.updating;
     }
 
-    clear() {
-      this.tracks = [];
-      this.selectedTrack = null;
+    selectTrack(track: Track) {
+      this.selectedTrack = track;
       m.redraw();
     }
 

@@ -112,8 +112,9 @@
     <TypeScriptCompile Include="js\app\components\tunes-browser\tunes-form.ts" />
     <TypeScriptCompile Include="js\app\components\tunes-browser\tunes-list.ts" />
     <TypeScriptCompile Include="js\app\components\tunes-browser\tunes-player.ts" />
+    <TypeScriptCompile Include="js\app\components\tunes-browser\tunes-searching.ts" />
     <TypeScriptCompile Include="js\app\models\Track.ts" />
-    <TypeScriptCompile Include="js\app\models\Tracks.ts" />
+    <TypeScriptCompile Include="js\app\models\PlayList.ts" />
     <TypeScriptCompile Include="js\app\tunes-app.ts" />
   </ItemGroup>
   <ItemGroup>

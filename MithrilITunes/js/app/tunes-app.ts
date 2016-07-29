@@ -1,7 +1,7 @@
 ﻿/// <reference path="./mithril.d.ts"/>
 module App {
   export class TunesApp implements Mithril.Component<any> {
-    tunesBrowser = new Components.TunesBrowser(new Model.Tracks());
+    tunesBrowser = new Components.TunesBrowser(new Model.PlayList());
 
     view() {
       return m('div', { style: 'margin: 1pc' }, [

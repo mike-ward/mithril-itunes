@@ -1,15 +1,13 @@
 ﻿/// <reference path="../../mithril.d.ts"/>
 module Components {
   export class TunesPlayer implements Mithril.Component<any> {
-    constructor(private tracks: Model.Tracks) { }
-
-    view() {
-      const selectedTrack = this.tracks && this.tracks.getSelectedTrack();
+    view(_, args) {
+      const selectedTrack = args.selectedTrack();
       if (!selectedTrack) return m('');
 
       return m('div', { style: this.style }, [
         m('div', [
-          m('button.pure-button[style="float:right"]', { onclick: () => this.close() }, 'x'),
+          m('button.pure-button[style="float:right"]', { onclick: () => args.close() }, 'x'),
           m('div', selectedTrack.trackName),
           m('small', [
             m.trust('by&nbsp;'),
@@ -22,10 +20,6 @@ module Components {
           style: 'width: 24rem; margin: 0.5rem'
         })
       ]);
-    }
-
-    close() {
-      this.tracks.selectTrack(null);
     }
 
     private style = `
