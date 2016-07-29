@@ -44,7 +44,7 @@ module Components {
     }
 
     name(track: Model.Track, selectTrack: (t: Model.Track) => void) {
-      return m('div', [
+      return  [
         m('img', {
           alt: 'artwork cover',
           src: track.artworkUrl100,
@@ -52,7 +52,7 @@ module Components {
           onclick: () => selectTrack(track)
         }),
         m('span', { style: 'font-size: larger' }, track.trackName)
-      ]);
+      ];
     }
 
     isSortedOn(field: string) {
