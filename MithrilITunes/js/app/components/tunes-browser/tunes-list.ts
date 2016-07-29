@@ -1,11 +1,12 @@
 ﻿/// <reference path="../../mithril.d.ts"/>
 module Components {
   export class TunesList implements Mithril.Component<any> {
-    sortBy = '';
+    sortBy = m.prop('');
 
     view(_, args) {
-      const tracks = args.getTracks(this.sortBy);
+      const tracks = args.getTracks(this.sortBy());
       const selectTrack = args.selectTrack;
+
       return tracks.length
         ? m('table.pure-table.pure-table-bordered', [
           this.head(),
@@ -17,23 +18,23 @@ module Components {
       return m('thead', [
         m('tr', {
           style: 'cursor: pointer',
-          onclick: e => this.updateSort(e.target.id)
+          onclick: e => this.sortBy(e.target.id)
         }, [
-            m('th[id="trackName"]', `Name ${this.isSortedOn('trackName')}`),
-            m('th[id="artistName"]', `Artist ${this.isSortedOn('artistName')}`),
-            m('th[id="collectionName"]', `Collection ${this.isSortedOn('collectionName')}`),
-            m('th[id="trackPrice"]', `Price ${this.isSortedOn('trackPrice')}`)
+            m('th#trackName', `Name ${this.isSortedOn('trackName')}`),
+            m('th#artistName', `Artist ${this.isSortedOn('artistName')}`),
+            m('th#collectionName', `Collection ${this.isSortedOn('collectionName')}`),
+            m('th#trackPrice', `Price ${this.isSortedOn('trackPrice')}`)
           ])
       ]);
     }
 
-    body(tracks: Model.Track[], selectTrack: (s: Model.Track) => void) {
+    body(tracks: Model.Track[], selectTrack: (t: Model.Track) => void) {
       return m('tbody', [
         tracks.map(track => this.row(track, selectTrack))
       ]);
     }
 
-    row(track: Model.Track, selectTrack: (s: Model.Track) => void) {
+    row(track: Model.Track, selectTrack: (t: Model.Track) => void) {
       return m('tr', [
         m('td', this.name(track, selectTrack)),
         m('td', track.artistName),
@@ -42,7 +43,7 @@ module Components {
       ]);
     }
 
-    name(track: Model.Track, selectTrack: (s: Model.Track) => void) {
+    name(track: Model.Track, selectTrack: (t: Model.Track) => void) {
       return m('div', [
         m('img', {
           alt: 'artwork cover',
@@ -54,12 +55,8 @@ module Components {
       ]);
     }
 
-    updateSort(field: string) {
-      this.sortBy = field;
-    }
-
     isSortedOn(field: string) {
-      return this.sortBy === field ? '*' : '';
+      return this.sortBy() === field ? '*' : '';
     }
   }
 }

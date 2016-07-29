@@ -11,15 +11,15 @@ module Components {
     view() {
       return m('div', [
         m(this.tunesForm, {
-          onSearch: (searchTerm) => this.playList.updateTracks(searchTerm)
+          onSearch: (searchTerm: string) => this.playList.updateTracks(searchTerm)
         }),
 
         m('hr',
           { style: 'margin: 1rem 0' }),
 
         m(this.tunesList, {
-          getTracks: (sortBy) => this.playList.sort(sortBy),
-          selectTrack: (track) => this.playList.selectTrack(track)
+          getTracks: (sortBy: string) => this.playList.sort(sortBy),
+          selectTrack: (track: Model.Track) => this.playList.selectTrack(track)
         }),
 
         m(this.tunesPlayer, {
